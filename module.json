@@ -1,0 +1,29 @@
+{
+  "id": "pazindor-dev-essentials",
+  "title": "Pazindor's Developer Essentials",
+  "authors": [{
+    "name": "Pazindor",
+    "email": "xxpazindorxx@gmail.com",
+    "discord": "Patryk#6024"
+  }],
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13.350"
+  },
+  "socket": true,
+  "esmodules": ["module/pazindor-dev-essentials.mjs"],
+  "styles": ["css/pazindor-dev-essentials.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "flags": {},
+  "description": "",
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

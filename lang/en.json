@@ -1,0 +1,14 @@
+{
+  "PDE.CLOSE": "Close",
+  "PDE.CONFIRM": "Confirm",
+  "PDE.CANCEL": "Cancel",
+  "PDE.YES": "Yes",
+  "PDE.NO": "No",
+
+  "PDE.DIALOG.TITLE": "Dialog",
+
+  "PDE.TOKEN_SELECTOR.TITLE": "Token Selector",
+  "PDE.TOKEN_SELECTOR.PING": "Ping Token Position",
+
+  "PDE.TEXT_EDITOR.TITLE": "Text Editor"
+}

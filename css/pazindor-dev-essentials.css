@@ -1,0 +1,79 @@
+.pde .box-wrapper {
+  border-width: 2px;
+  border-radius: 5px;
+  padding: 10px;
+}
+.pde .scrollable {
+  --scroll-margin: 0;
+  padding: 10px;
+}
+.pde .form-footer {
+  margin-top: 10px;
+}
+.pde .form-footer .button {
+  font-size: 22px;
+  width: 100%;
+  padding: 5px;
+}
+
+#input-dialog .form-group input {
+  flex: 1;
+}
+
+#token-selector .token-wrapper {
+  max-height: 500px;
+  gap: 0;
+}
+#token-selector .token-wrapper .actor {
+  padding: 8px 6px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border-light-2);
+  border-bottom: 1px solid var(--color-border-light-2);
+}
+#token-selector .token-wrapper .actor .wrapper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+#token-selector .token-wrapper .actor .wrapper img {
+  height: 40px;
+  width: 40px;
+  -o-object-position: 50% 0;
+  object-position: 50% 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid var(--color-border-light-2);
+}
+#token-selector .token-wrapper .actor .wrapper input {
+  border: 0;
+  background-color: transparent;
+  font-size: 20px;
+  margin: 0 5px 0 5px;
+  text-indent: 5px;
+  color: var(--color-text-primary);
+}
+#token-selector .token-wrapper .actor:first-child {
+  border-top: 0;
+}
+#token-selector .token-wrapper .actor:last-child {
+  border-bottom: 0;
+}
+#token-selector .token-wrapper .actor .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+#text-dialog {
+  height: 100%;
+}
+#text-dialog .editor-dialog-body {
+  height: 100%;
+}
+#text-dialog .editor-dialog-body prose-mirror {
+  height: 100%;
+}
