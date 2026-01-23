@@ -1,5 +1,5 @@
 This module was created to facilitate the work of developers and macro creators. It provides useful features:
-- `PDE.InputDialog` - allow users to send questions to other users and wait for the response.
+- `PDE.InputDialog` - allow developer to ask user a question and wait for the response. Uses socket to communication between users.
 - `PDE.TokenSelector` - allow user to select tokens. Returns selected tokens.
 - `PDE.TextEditor` - Prose Mirror based text editor.
 - `PDE.utils` - a collection of useful methods that can significantly improve the development process.
