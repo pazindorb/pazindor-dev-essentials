@@ -1,6 +1,6 @@
 import { emitEvent, responseListener } from "../configs/socket.mjs";
 import { getPlayersForActor } from "../utils.mjs";
-import { PdeBaseDialog } from "./base-dialog.mjs";
+import { BaseDialog } from "./base-dialog.mjs";
 
 /**
  * Possible input type examples type examples:
@@ -49,7 +49,7 @@ import { PdeBaseDialog } from "./base-dialog.mjs";
  * }
  * @return Array[dropped]
  */
-export class InputDialog extends PdeBaseDialog {
+export class InputDialog extends BaseDialog {
 
   //===========================================
   //           PRECONFIGURED DIALOG           =

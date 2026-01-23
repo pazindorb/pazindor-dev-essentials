@@ -7,7 +7,12 @@ export function getValueFromPath(object, pathToValue) {
   return object;
 }
 
-export function setValueForPath(object, path, value) {
+export async function setValueForPath(object, path, value, dbUpdate=false) {
+  if (dbUpdate) {
+    await object.update({[path]: value});
+    return;
+  }
+
   const keys = path.split('.');
   let currentObject = object;
 

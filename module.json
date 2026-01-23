@@ -6,11 +6,12 @@
     "email": "xxpazindorxx@gmail.com",
     "discord": "Patryk#6024"
   }],
-  "version": "1.0.0",
+  "version": "0.7.0",
   "compatibility": {
     "minimum": "13",
     "verified": "13.350"
   },
+  "library": true,
   "socket": true,
   "esmodules": ["module/pazindor-dev-essentials.mjs"],
   "styles": ["css/pazindor-dev-essentials.css"],

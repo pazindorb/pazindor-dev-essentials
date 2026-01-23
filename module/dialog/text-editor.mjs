@@ -1,6 +1,6 @@
-import { PdeBaseDialog } from "./base-dialog.mjs";
+import { BaseDialog } from "./base-dialog.mjs";
 
-export class TextEditor extends PdeBaseDialog {
+export class TextEditor extends BaseDialog {
 
   static async create(text, options={}) {
     const prompt = new TextEditor(text, options);

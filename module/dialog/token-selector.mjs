@@ -1,6 +1,6 @@
-import { PdeBaseDialog } from "./base-dialog.mjs";
+import { BaseDialog } from "./base-dialog.mjs";
 
-export class TokenSelector extends PdeBaseDialog {
+export class TokenSelector extends BaseDialog {
   
   static async create(tokens, options={}) {
     const prompt = new TokenSelector(tokens, options);

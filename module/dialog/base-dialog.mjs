@@ -1,6 +1,6 @@
 import { getValueFromPath, setValueForPath } from "../utils.mjs";
 
-export class PdeBaseDialog extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.ApplicationV2) {
+export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.ApplicationV2) {
 
   /** @override */
   static DEFAULT_OPTIONS = {
@@ -81,7 +81,7 @@ export class PdeBaseDialog extends foundry.applications.api.HandlebarsApplicatio
 
   _onActivable(path, which, dataset) {
     const value = getValueFromPath(this, path);
-    this.updateAndRender(path, !value);
+    this.updateAndRender(path, !value, !!dataset.nonDb);
   }
 
   _onToggle(path, which, max, min, dataset) {
@@ -89,17 +89,17 @@ export class PdeBaseDialog extends foundry.applications.api.HandlebarsApplicatio
     let newValue = value;
     if (which === 0) newValue = Math.min(value + 1, max);
     if (which === 2) newValue = Math.max(value + -1, min);
-    this.updateAndRender(path, newValue);
+    this.updateAndRender(path, newValue, !!dataset.nonDb);
   }
 
   _onChangeString(path, value, dataset) {
-    this.updateAndRender(path, value);
+    this.updateAndRender(path, value, !!dataset.nonDb);
   }
 
   _onChangeNumeric(path, value, nullable, dataset) {
     let numericValue = parseInt(value);
     if (nullable && isNaN(numericValue)) numericValue = null;
-    this.updateAndRender(path, value);
+    this.updateAndRender(path, value, !!dataset.nonDb);
   }
 
   async _onDrop(event) {
@@ -111,13 +111,9 @@ export class PdeBaseDialog extends foundry.applications.api.HandlebarsApplicatio
     return droppedObject;
   }
 
-  async updateAndRender(path, value) {
-    if (this.dbObject) {
-      await this.dbObject.update({[path]: value});
-    }
-    else {
-      setValueForPath(this, path, value);
-    }
+  async updateAndRender(path, value, notDbUpdate) {
+    if (this.dbObject && !notDbUpdate) await setValueForPath(this.dbObject, path, value, true);
+    else setValueForPath(this, path, value);
     this.render();
   }
 }
