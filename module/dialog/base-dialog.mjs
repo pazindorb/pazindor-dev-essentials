@@ -5,7 +5,7 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
   /** @override */
   static DEFAULT_OPTIONS = {
     id: "dialog-{id}",
-    classes: ["pgt themed"],
+    classes: ["pde themed"],
     position: {width: 350},
     window: {
       title: "PDE.DIALOG.TITLE",

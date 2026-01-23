@@ -56,7 +56,6 @@ export function getActivePlayers(allowGM=false) {
 
 export function getActorsForPlayer(player) {
   return game.actors.filter(actor => actor.ownership[player.id] === 3)
-              .filter(actor => PGT.actorTypes.includes(actor.type))
 }
 
 export function getPlayersForActor(actor, allowGM=false) {
