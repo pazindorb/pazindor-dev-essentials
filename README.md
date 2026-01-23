@@ -53,7 +53,7 @@ const data = {
   ]
 }
 const options = {
-  toUsers: ["Ro95xYO9O3Qa40xT", "2aKVAW5wcIAyChJt"]
+  toUsers: ["Ro95xYO9O3Qa40xT", "2aKVAW5wcIAyChJt"] // Ignore this line if you want to display dialog for triggering user
 }
 const response = await PDE.InputDialog.open("input", data, options)
 console.log(response)
