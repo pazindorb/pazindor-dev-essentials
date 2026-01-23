@@ -2,7 +2,7 @@ import { BaseDialog } from "./base-dialog.mjs";
 
 export class TokenSelector extends BaseDialog {
   
-  static async create(tokens, options={}) {
+  static async open(tokens=[], options={}) {
     const prompt = new TokenSelector(tokens, options);
     return new Promise((resolve) => {
       prompt.promiseResolve = resolve;
@@ -17,7 +17,7 @@ export class TokenSelector extends BaseDialog {
     }
   };
 
-  constructor(tokens, options = {}) {
+  constructor(tokens=[], options = {}) {
     super(options);
     this._prepareTokens(tokens); 
     this.customMessage = options.customMessage;
@@ -25,7 +25,7 @@ export class TokenSelector extends BaseDialog {
 
   _prepareTokens(tokens) {
     const selectable = {};
-    const tokenArray = tokens?.length > 0 ? tokens : (canvas.tokens?.placeables || []);
+    const tokenArray = tokens.length > 0 ? tokens : (canvas.tokens?.placeables || []);
     tokenArray.forEach(token => selectable[token.id] = {selected: false, token: token});
     this.tokens = selectable;
   }

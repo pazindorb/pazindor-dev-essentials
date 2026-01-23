@@ -2,7 +2,7 @@ import { InputDialog } from "../dialog/input-dialog.mjs";
 
 export function registerModuleSocket() {
   game.socket.on("module.pazindor-dev-essentials", async (data, emmiterId) => {
-    const emitTypes = PGT.CONST.SOCKET.EMIT;
+    const emitTypes = PDE.CONST.SOCKET.EMIT;
     switch (data.type) {
       case emitTypes.INPUT_DIALOG:
         handleInputDialog(data.payload, emmiterId);
@@ -14,11 +14,10 @@ export function registerModuleSocket() {
 async function handleInputDialog(payload, emmiterId) {
   if (payload.userIds.includes(game.user.id)) {
     const result = await InputDialog.create(payload.inputType, payload.data, payload.options)
-    game.socket.emit('module.pazindor-dev-essentials', {
-      type: PDE.SOCKET.RESPONSE.INPUT_DIALOG,
+    emitEvent(PDE.CONST.SOCKET.RESPONSE.INPUT_DIALOG, {
       emmiterId: emmiterId,
       signature: payload.signature,
-      payload: result
+      result: result
     })
   }
 }

@@ -79,7 +79,7 @@ export class InputDialog extends BaseDialog {
   //===========================================
   static async open(inputType, data, options={}) {
     // Send to actor owners
-    if (options.sendToActorOwner && !options.users) {
+    if (options.sendToActorOwner && !options.toUsers) {
       const owners = getPlayersForActor(options.sendToActorOwner, options.allowGM);
       const ownerIds = owners.map(owner => owner._id);
       if (ownerIds.length > 0) options.toUsers = ownerIds;
@@ -95,10 +95,10 @@ export class InputDialog extends BaseDialog {
         signature: signature
       }
       const validationData = {emmiterId: game.user.id, signature: signature}
-      const result = responseListener(PDE.SOCKET.RESPONSE.INPUT_DIALOG, validationData);
-      emitEvent(PDE.SOCKET.EMIT.INPUT_DIALOG, payload);
-      const response = await result;
-      return response;
+      const response = responseListener(PDE.CONST.SOCKET.RESPONSE.INPUT_DIALOG, validationData);
+      emitEvent(PDE.CONST.SOCKET.EMIT.INPUT_DIALOG, payload);
+      const result = await response;
+      return result.result;
     }
     else {
       return await InputDialog.create(inputType, data, options);

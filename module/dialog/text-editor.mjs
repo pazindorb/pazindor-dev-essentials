@@ -2,7 +2,7 @@ import { BaseDialog } from "./base-dialog.mjs";
 
 export class TextEditor extends BaseDialog {
 
-  static async create(text, options={}) {
+  static async open(text="", options={}) {
     const prompt = new TextEditor(text, options);
     return new Promise((resolve) => {
       prompt.promiseResolve = resolve;
@@ -16,7 +16,7 @@ export class TextEditor extends BaseDialog {
     }
   };
 
-  constructor(text, options={}) {
+  constructor(text="", options={}) {
     super(options);
     this.text = text;
   }

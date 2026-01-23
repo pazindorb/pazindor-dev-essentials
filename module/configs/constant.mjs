@@ -1,5 +1,5 @@
 export function prepareConstants() {
-  return {
+  PDE.CONST = {
     SOCKET: {
       EMIT: {
         INPUT_DIALOG: "INPUT_DIALOG",
