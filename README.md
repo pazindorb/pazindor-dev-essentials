@@ -93,6 +93,6 @@ console.log(result)
 
 `BaseDialog` can be imported into your project as follows:
 ```
-import { BaseDialog } from "/modules/pazindor-dev-essentials/module/dialog/base-dialog.mjs";
+import { BaseDialog } from "/modules/pazindor-dev-essentials/module/pazindor-dev-essentials.mjs";
 ```
 If you are looking for examples of how to use `BaseDialog`, look at `TokenSelector` in this module or `AdventurersRegister` in Pazindor's GM Tools module.

@@ -6,6 +6,8 @@ import { TextEditor } from "./dialog/text-editor.mjs";
 import { TokenSelector } from "./dialog/token-selector.mjs";
 import * as utils from "./utils.mjs"
 
+export { BaseDialog } from "./dialog/base-dialog.mjs";
+
 Hooks.on("init", () => {
   registerModuleSocket();
   registerHandlebarsHelpers();
