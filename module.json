@@ -26,5 +26,5 @@
   "description": "<p>This module was created to facilitate the work of developers and macro creators. It provides useful features, including input dialog that allow users to send questions to other users and wait for the response.</p>",
   "url": "",
   "manifest": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.8.0/module.json",
-  "download": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.8.0/pazindor-gm-tools.zip"
+  "download": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.8.0/pazindor-dev-essentials.zip"
 }
