@@ -149,7 +149,7 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
     const object = await this._getTooltipObject(dataset, event);
     if (!object) return;
 
-    const position = this._getTooltipPosition(target, event)
+    const position = this._getTooltipPosition(event);
     const options = {position: position};
 
     if (dataset.header) options.header = dataset.header;
@@ -163,21 +163,9 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
 
   /** 
    * If not provided it will be calcuated automatically.
-   * 
-   * Object Example
-   * {
-   *    maxHeight: "500px",
-   *    minWidth: "300px",
-   *    left: "200px", 
-   *    bottom: "300px",
-   *    top: ""
-   *  }
    */
-  _getTooltipPosition(target, event) {
-    return {
-      maxHeight: "500px",
-      minWidth: "300px"
-    }; 
+  _getTooltipPosition(event) {
+    return null;
   }
 
   _getHoverTarget(element) {
