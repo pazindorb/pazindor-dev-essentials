@@ -1,4 +1,6 @@
 {
+  "PDE.SETTINGS.TOOLTIP_ITEM_DESCRIPTION_PATH": "Item description path",
+
   "PDE.CLOSE": "Close",
   "PDE.CONFIRM": "Confirm",
   "PDE.CANCEL": "Cancel",
@@ -10,5 +12,8 @@
   "PDE.TOKEN_SELECTOR.TITLE": "Token Selector",
   "PDE.TOKEN_SELECTOR.PING": "Ping Token Position",
 
-  "PDE.TEXT_EDITOR.TITLE": "Text Editor"
+  "PDE.TEXT_EDITOR.TITLE": "Text Editor",
+
+  "PDE.TOOLTIP.HOLD_ALT": "Hold [Alt] to interact with tooltip.",
+  "PDE.TOOLTIP.GO_BACK": "RMB will take you back to the previous tooltip."
 }

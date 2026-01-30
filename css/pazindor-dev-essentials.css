@@ -15,16 +15,14 @@
   width: 100%;
   padding: 5px;
 }
-
-#input-dialog .form-group input {
+.pde#input-dialog .form-group input {
   flex: 1;
 }
-
-#token-selector .token-wrapper {
+.pde#token-selector .token-wrapper {
   max-height: 500px;
   gap: 0;
 }
-#token-selector .token-wrapper .actor {
+.pde#token-selector .token-wrapper .actor {
   padding: 8px 6px;
   font-size: 14px;
   display: flex;
@@ -33,12 +31,12 @@
   border-top: 1px solid var(--color-border-light-2);
   border-bottom: 1px solid var(--color-border-light-2);
 }
-#token-selector .token-wrapper .actor .wrapper {
+.pde#token-selector .token-wrapper .actor .wrapper {
   display: flex;
   justify-content: start;
   align-items: center;
 }
-#token-selector .token-wrapper .actor .wrapper img {
+.pde#token-selector .token-wrapper .actor .wrapper img {
   height: 40px;
   width: 40px;
   -o-object-position: 50% 0;
@@ -48,7 +46,7 @@
   border-radius: 5px;
   border: 1px solid var(--color-border-light-2);
 }
-#token-selector .token-wrapper .actor .wrapper input {
+.pde#token-selector .token-wrapper .actor .wrapper input {
   border: 0;
   background-color: transparent;
   font-size: 20px;
@@ -56,24 +54,139 @@
   text-indent: 5px;
   color: var(--color-text-primary);
 }
-#token-selector .token-wrapper .actor:first-child {
+.pde#token-selector .token-wrapper .actor:first-child {
   border-top: 0;
 }
-#token-selector .token-wrapper .actor:last-child {
+.pde#token-selector .token-wrapper .actor:last-child {
   border-bottom: 0;
 }
-#token-selector .token-wrapper .actor .buttons {
+.pde#token-selector .token-wrapper .actor .buttons {
   display: flex;
   align-items: center;
   justify-content: end;
 }
-
-#text-dialog {
+.pde#text-dialog {
   height: 100%;
 }
-#text-dialog .editor-dialog-body {
+.pde#text-dialog .editor-dialog-body {
   height: 100%;
 }
-#text-dialog .editor-dialog-body prose-mirror {
+.pde#text-dialog .editor-dialog-body prose-mirror {
   height: 100%;
+}
+.pde#tooltip-container {
+  --border-color: var(--primary-dark);
+  --text-color: var(--color-dark-1);
+  --text-shadow: none;
+  --highlight-color: var(--primary-color);
+  pointer-events: all;
+  background-image: url(../images/sheet/parchment.jpg);
+  box-shadow: 0 0 15px #6b6a6a inset;
+  position: fixed;
+  min-height: 200px;
+  width: -moz-min-content;
+  width: min-content;
+  z-index: var(--z-index-tooltip);
+  border-radius: 5px;
+  padding: 12px;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.pde#tooltip-container.theme-dark {
+  --border-color: var(--color-light-3);
+  --text-color: var(--color-light-2);
+  --text-shadow: white;
+  --highlight-color: var(--color-shadow-highlight);
+  background: var(--color-cool-5-90);
+  box-shadow: none;
+}
+.pde#tooltip-container.theme-light {
+  --border-color: var(--primary-dark);
+  --text-color: var(--color-dark-1);
+  --text-shadow: none;
+  --highlight-color: var(--primary-color);
+  background-image: url(../images/sheet/parchment.jpg);
+  box-shadow: 0 0 15px #6b6a6a inset;
+}
+.pde#tooltip-container .tooltip-info {
+  font-size: 10px;
+  color: var(--text-color);
+}
+.pde#tooltip-container .tooltip-header {
+  display: flex;
+  align-items: center;
+  height: auto;
+  width: auto;
+}
+.pde#tooltip-container .tooltip-header input {
+  font-family: var(--font-h4);
+  font-weight: bold;
+  font-size: 22px;
+  overflow-x: hidden;
+  background-color: transparent;
+  border: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 40px;
+}
+.pde#tooltip-container .tooltip-header input:disabled {
+  color: var(--text-color);
+}
+.pde#tooltip-container .tooltip-header .image {
+  margin: 3px 5px 3px 0;
+  height: 40px;
+  width: 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+}
+.pde#tooltip-container .tooltip-header .cost-printer {
+  color: black;
+  padding-left: 3px;
+  margin-left: 10px;
+  flex: 0 0 auto;
+  height: 100%;
+  gap: 3.5px;
+  font-size: 15px;
+  height: 40px;
+}
+.pde#tooltip-container .tooltip-header .cost-printer .cost-img {
+  height: 16px;
+  width: 16px;
+  border-radius: 5px;
+  border: 1px solid var(--text-shadow);
+}
+.pde#tooltip-container .tooltip-header .cost-printer .cost .cost-icon, .pde#tooltip-container .tooltip-header .cost-printer .cost b {
+  text-shadow: -1px 0 var(--text-shadow), 0 1px var(--text-shadow), 1px 0 var(--text-shadow), 0 -1px var(--text-shadow);
+}
+.pde#tooltip-container .tooltip-header.invisible {
+  display: none;
+}
+.pde#tooltip-container .tooltip-description {
+  font-size: 14px;
+  color: var(--text-color);
+  padding: 0 6px;
+}
+.pde#tooltip-container .tooltip-description.invisible {
+  display: none;
+}
+.pde#tooltip-container .hyperlink-style {
+  color: var(--highlight-color);
+  cursor: pointer;
+}
+.pde#tooltip-container .hyperlink-style:hover {
+  text-shadow: 2px 2px 5px #ca0000;
+}
+.pde#tooltip-container .underline {
+  clear: both;
+  border: 0;
+  height: 2px;
+  margin: 7px 0;
+  color: var(--border-color);
+  background-image: linear-gradient(90deg, transparent 0%, var(--border-color) 33%, var(--border-color) 66%, transparent 100%);
+}
+.pde#tooltip-container .underline.invisible {
+  display: none;
 }

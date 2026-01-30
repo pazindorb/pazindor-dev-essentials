@@ -1,3 +1,4 @@
+import { TooltipCreator } from "../tooltip.mjs";
 import { getValueFromPath, setValueForPath } from "../utils.mjs";
 
 export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.ApplicationV2) {
@@ -28,7 +29,7 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const colorTheme = game.settings.get("core", "uiConfig").colorScheme.applications;
-    context.cssClass = `theme-${colorTheme}`;
+    context.cssClass = `theme-${colorTheme} pde`;
     
     // Get active tab
     if (context.tabs) {
@@ -38,11 +39,18 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
     return context;
   }
 
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    this.element.appendChild(TooltipCreator.getTooltipHtml());
+  }
+
   _attachFrameListeners() {
     super._attachFrameListeners();
     this.window.content.addEventListener("change", this._onChange.bind(this));
     this.window.content.addEventListener("mousedown", this._onMouseDown.bind(this));
     this.window.content.addEventListener("drop", this._onDrop.bind(this));
+    this.window.content.addEventListener("mouseover", this._onHover.bind(this));
+    this.window.content.addEventListener("mouseout", this._onHover.bind(this));
   }
 
   _getCtypeTarget(element) {
@@ -79,6 +87,17 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
     }
   }
 
+  async _onHover(event) {
+    const target = this._getHoverTarget(event.target);
+    const dataset = target.dataset;
+    const hover = dataset.hover;
+
+    switch (hover) {
+      case "tooltip": this._onTooltip(event, target, dataset); break;
+    }
+  }
+
+  // ================== CHANGES ===================
   _onActivable(path, which, dataset) {
     const value = getValueFromPath(this, path);
     this.updateAndRender(path, !value, !!dataset.nonDb);
@@ -116,4 +135,55 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
     else setValueForPath(this, path, value);
     this.render();
   }
+  // ================== CHANGES ===================
+
+  // ================== TOOLTIP ===================
+  async _onTooltip(event, target, dataset) {
+    const html = $(this.element);
+
+    if (event.type !== "mouseover") {
+      TooltipCreator.hideTooltip(event, html);
+      return;
+    }
+
+    const object = await this._getTooltipObject(dataset, event);
+    if (!object) return;
+
+    const position = this._getTooltipPosition(target, event)
+    const options = {position: position};
+
+    if (dataset.header) options.header = dataset.header;
+    if (dataset.img) options.img = dataset.img;
+    TooltipCreator.showTooltipFor(object, event, html, options);
+  }
+
+  async _getTooltipObject(dataset, event) {
+    return await fromUuid(dataset.uuid);
+  }
+
+  /** 
+   * If not provided it will be calcuated automatically.
+   * 
+   * Object Example
+   * {
+   *    maxHeight: "500px",
+   *    minWidth: "300px",
+   *    left: "200px", 
+   *    bottom: "300px",
+   *    top: ""
+   *  }
+   */
+  _getTooltipPosition(target, event) {
+    return {
+      maxHeight: "500px",
+      minWidth: "300px"
+    }; 
+  }
+
+  _getHoverTarget(element) {
+    if (element.id === this.element.id || !element.parentElement) return element;
+    if (element.dataset.hover) return element;
+    return this._getHoverTarget(element.parentElement);
+  }
+   // ================== TOOLTIP ===================
 }
