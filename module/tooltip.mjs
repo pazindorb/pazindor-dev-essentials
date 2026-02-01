@@ -14,8 +14,11 @@ export class TooltipCreator {
       </div>
       <div id="info-underline" class="underline"></div>
       <div class="tooltip-header"></div>
-
       <div id="header-underline" class="underline"></div>
+
+      <div class="tooltip-details"></div>
+      <div id="details-underline" class="underline invisible"></div>
+
       <div class="tooltip-description"></div>
     `;
     return tooltip;
@@ -41,19 +44,21 @@ async function _itemTooltip(item, event, html, options) {
   const header = _header(item.img, item.name);
   const descriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath") || "system.description";
   const description = await _description(getValueFromPath(item, descriptionPath));
-  _showTooltip(html, event, header, description, options);
+  const details = PDE.system.itemDetails ? PDE.system.itemDetails(item) : null;
+  _showTooltip(html, event, header, description, details, options);
 }
 
 async function _effectTooltip(effect, event, html, options) {
   const header = _header(effect.img, effect.name);
   const description = await _description(effect.description);
-  _showTooltip(html, event, header, description, options);
+  const details = _effectDetails(effect);
+  _showTooltip(html, event, header, description, details, options);
 }
 
 async function _journalPageTooltip(page, event, html, options) {
   const header = _header(options.img || "icons/svg/book.svg", options.header || page.name);
   const description = await _description(page.text.content);
-  _showTooltip(html, event, header, description, options);
+  _showTooltip(html, event, header, description, null, options);
 }
 
 //================================//
@@ -130,10 +135,18 @@ function _clearStyles(text) {
   return clean;
 }
 
+function _effectDetails(effect) {
+  let content = "";
+  if (effect.disabled) content += `<div class="detail"><i class="fa-solid fa-hourglass" style="margin-right: 2px;"></i> ${game.i18n.localize("PDE.TOOLTIP.DISABLED")}</div>`;
+  if (effect.isTemporary) content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.TEMPORARY")}</div>`;
+  else content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.PASSIVE")}</div>`;
+  if (content) return `<div class="box-wrapper">${content}</div>`;
+}
+
 //================================//
 //          SHOW TOOLTIP          //
 //================================//
-function _showTooltip(html, event, header, description, options) {
+function _showTooltip(html, event, header, description, details, options) {
   const tooltip = html.find("#tooltip-container");
 
   // If tooltip is already visible we dont want other tooltips to appear
@@ -141,13 +154,14 @@ function _showTooltip(html, event, header, description, options) {
 
   _showHidePartial(header, tooltip.find(".tooltip-header"), tooltip.find("#header-underline"));
   _showHidePartial(description, tooltip.find(".tooltip-description"));
+  _showHidePartial(details, tooltip.find(".tooltip-details"), tooltip.find("#details-underline"));
   _setPosition(event, tooltip, options);
   _addEventListener(tooltip);
 
   tooltip.contextmenu(() => {
     if (tooltip.oldContent && tooltip.oldContent.length > 0) {
       const oldContent = tooltip.oldContent.pop();
-      _swapTooltipContent(tooltip, oldContent.header, oldContent.description);
+      _swapTooltipContent(tooltip, oldContent.header, oldContent.description, oldContent.details);
     }
   })
 
@@ -192,13 +206,15 @@ function _addEventListener(tooltip) {
     const header = _header(item.img, item.name);
     const descriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath") || "system.description";
     const description = await _description(getValueFromPath(item, descriptionPath));
-    _swapTooltipContent(tooltip, header, description);
+    const details = null; // GET ITEM DETAILS
+    _swapTooltipContent(tooltip, header, description, details);
   });
 }
 
-function _swapTooltipContent(tooltip, header, description) {
+function _swapTooltipContent(tooltip, header, description, details) {
   _showHidePartial(header, tooltip.find(".tooltip-header"), tooltip.find("#header-underline"));
   _showHidePartial(description, tooltip.find(".tooltip-description"));
+  _showHidePartial(details, tooltip.find(".tooltip-details"), tooltip.find("#details-underline"));
   _addEventListener(tooltip);
 }
 

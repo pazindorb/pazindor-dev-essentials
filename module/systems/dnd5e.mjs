@@ -1,6 +1,7 @@
 export function dnd5eConfig() {
   PDE.system = {
-    enhanceTooltipDescription: enhanceTooltipDescription
+    enhanceTooltipDescription: enhanceTooltipDescription,
+    itemDetails: itemDetails
   }
 
   const itemDescriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath");
@@ -31,4 +32,29 @@ async function enhanceTooltipDescription(description) {
     }
   }
   return description;
+}
+
+function itemDetails(item) {
+  let content = "";
+  if (!item.system.isActive) return `<div class="box-wrapper"><div class="detail" style="background-color: #4d0353">${game.i18n.localize("DND5E.Passive")}</div></div>` // Return Passive
+
+  const activity = item.system.activities.find(() => true); // We want to grab 1st activity only
+  const l = activity.labels;
+
+  content += `<div class="detail" style="background-color: #4d0353">${l.activation}</div>`;
+  if (l.toHit)      content += `<div class="detail" style="background-color: #196e69">${game.i18n.localize("PDE.TOOLTIP.TO_HIT")}${l.toHit}</div>`;
+  if (l.save)       content += `<div class="detail" style="background-color: #196e69">${l.save}</div>`;
+  
+  if (l.damage) {
+    for (const dmg of l.damage) {
+      const color = ["temphp", "healing"].includes(dmg.damageType) ? "#0a6e1b" : "#6e0a0a";
+      content += `<div class="detail" style="background-color: ${color}">${dmg.label}</div>`;
+    }
+  }
+  
+  if (l.duration)     content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.DURATION")}${l.duration}</div>`;
+  if (l.target)       content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.TARGET")}${l.target}</div>`;
+  if (l.range)        content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.RANGE")}${l.range}</div>`;
+
+  if (content) return `<div class="box-wrapper">${content}</div>`;
 }
