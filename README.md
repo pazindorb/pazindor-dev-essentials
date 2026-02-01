@@ -14,6 +14,8 @@ const result = await PDE.TextEditor.open("<p>Text to edit</p>");
 ```
 
 ## InputDialog
+![Input Dialog Example](img/input_dialog.jpg)
+
 This dialog allows to send questions to user and await his response. It consists of 3 parameters:
 - `inputType` - determines the behavior of the dialogue and what questions it can ask
     -  `info` - a simple dialog that will only display the given information
@@ -42,15 +44,15 @@ This dialog allows to send questions to user and await his response. It consists
 ```
 const data = {
   header: "Animal Trivia", 
-  message: "Can you answer those questions?", 
+  message: "Can you answer these questions?", 
   information: [
-    "Dont worry this is not a test", 
+    "Don't worry, this isn't a test", 
     "Maybe it is tho"
   ],
   inputs: [
-    {type: "select", label: "King", hint: "What animal is a king", options: {lion: "Lion", tiger: "Tiger"}, preselected: "lion"},
+    {type: "select", label: "King", hint: "Which animal is king?", options: {lion: "Lion", tiger: "Tiger"}, preselected: "lion"},
     {type: "input", label: "Favorite Animal", hint: "What is your favorite animal?"},
-    {type: "checkbox", label: "Chicken", hint: "Is chicken a dinosaur"}
+    {type: "checkbox", label: "Chicken", hint: "Is a chicken a dinosaur"}
   ]
 }
 const options = {
@@ -78,6 +80,8 @@ In most cases, you'll need to ask a single question and receive an answer. To ac
 ***Note** If `InputDialog` is closed by the `x` button or `esc` key, it will return `null`. Remember to check this case when using it.*
 
 ## TokenSelector
+![Token Selector Example](img/token_selector.jpg)
+
 `TokenSelector` is a simple dialog that allows the user to select tokens from an array and then returns the selected tokens. It consists of 2 parameters:
 - `tokens` - an array of tokens from which the user can choose. If it is empty, the dialog assumes that this applies to all tokens on the scene.
 - `options` - an object containing special dialogue behaviors. It may contain fields such as:
@@ -90,6 +94,8 @@ console.log(result)
 ```
 
 ## TooltipCreator
+![Tooltip Creator Example](img/tooltip.jpg)
+
 `TooltipCreator` can be used in any ApplicationV2. It should be injected in the `_onRender` method.
 ```
 async _onRender(context, options) {
