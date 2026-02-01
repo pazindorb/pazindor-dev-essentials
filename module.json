@@ -6,7 +6,7 @@
     "email": "xxpazindorxx@gmail.com",
     "discord": "Patryk#6024"
   }],
-  "version": "0.8.0",
+  "version": "0.8.5",
   "compatibility": {
     "minimum": "13",
     "verified": "13.350"
@@ -25,6 +25,6 @@
   "flags": {},
   "description": "<p>This module was created to facilitate the work of developers and macro creators. It provides useful features, including input dialog that allow users to send questions to other users and wait for the response.</p>",
   "url": "",
-  "manifest": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.8.0/module.json",
-  "download": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.8.0/pazindor-dev-essentials.zip"
+  "manifest": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.8.5/module.json",
+  "download": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.8.5/pazindor-dev-essentials.zip"
 }
