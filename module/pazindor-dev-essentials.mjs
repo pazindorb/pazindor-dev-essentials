@@ -1,6 +1,5 @@
 import { prepareConstants } from "./configs/constant.mjs";
 import { registerHandlebarsHelpers } from "./configs/handlebars.mjs";
-import { registerPdeSettings } from "./configs/settings.mjs";
 import { registerModuleSocket } from "./configs/socket.mjs";
 import { InputDialog } from "./dialog/input-dialog.mjs";
 import { TextEditor } from "./dialog/text-editor.mjs";
@@ -15,7 +14,6 @@ export { BaseDialog } from "./dialog/base-dialog.mjs";
 Hooks.on("init", () => {
   registerModuleSocket();
   registerHandlebarsHelpers();
-  registerPdeSettings();
 
   window.PDE = {
     InputDialog,
@@ -25,12 +23,12 @@ Hooks.on("init", () => {
     utils: {...utils}
   }
 
-  prepareConstants();
-})
-
-Hooks.once("ready", async function() {
   switch (game.system.id) {
     case "dnd5e": dnd5eConfig(); break;
     case "pf2e": pf2eConfig(); break;
   }
-});
+
+  prepareConstants();
+})
+
+Hooks.once("ready", async function() {});

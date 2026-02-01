@@ -106,6 +106,23 @@ If you extend `BaseDialog`, the html element that will display the tooltip will 
 <img class="item-img" src="{{img}}" data-hover="tooltip" data-uuid="{{item.uuid}}"/>
 ```
 
+### System specific tooltip
+A specific system can extend the tooltip by adding details to it. To do this, add the following `system` object to `PDE`.
+
+```
+PDE.system = {
+    itemDescriptionPath: "system.description.value",
+    enhanceTooltipDescription: enhanceTooltipDescription,
+    itemDetails: itemDetails
+}
+```
+- `itemDescriptionPath` - a string that is the path to the item's `description` field.
+- `enhanceTooltipDescription` - a function that takes a `description` parameter and returns it after system specific changes have been applied to it.
+- `itemDetails` - a function that takes an `item` parameter and returns the html that will be added to the tooltip.
+
+DnD5e is automatically added to the base version of this module.
+
+
 ## BaseDialog
 `BaseDialog` can be used to speed up the creation of new dialog boxes. It supports basic operations such as listeners: `mousedown`, `change`, and `drop`. You can override its methods in your implementation if you need to.
 

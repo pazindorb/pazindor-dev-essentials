@@ -1,11 +1,9 @@
 export function dnd5eConfig() {
   PDE.system = {
+    itemDescriptionPath: "system.description.value",
     enhanceTooltipDescription: enhanceTooltipDescription,
     itemDetails: itemDetails
   }
-
-  const itemDescriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath");
-  if (!itemDescriptionPath) game.settings.set("pazindor-dev-essentials", "tooltipItemDescriptionPath", "system.description.value");
 }
 
 async function enhanceTooltipDescription(description) {

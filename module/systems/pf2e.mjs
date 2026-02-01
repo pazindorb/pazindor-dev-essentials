@@ -1,10 +1,8 @@
 export function pf2eConfig() {
   PDE.system = {
+    itemDescriptionPath: "system.description.value",
     enhanceTooltipDescription: enhanceTooltipDescription
   }
-
-  const itemDescriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath");
-  if (!itemDescriptionPath) game.settings.set("pazindor-dev-essentials", "tooltipItemDescriptionPath", "system.description.value");
 }
 
 async function enhanceTooltipDescription(description) {

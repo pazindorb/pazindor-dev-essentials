@@ -42,7 +42,7 @@ export class TooltipCreator {
 
 async function _itemTooltip(item, event, html, options) {
   const header = _header(item.img, item.name);
-  const descriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath") || "system.description";
+  const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
   const description = await _description(getValueFromPath(item, descriptionPath));
   const details = PDE.system.itemDetails ? PDE.system.itemDetails(item) : null;
   _showTooltip(html, event, header, description, details, options);
@@ -99,7 +99,7 @@ async function _injectEmbededLinks(description) {
       let uuid = full.split(" ")[0];
       uuid = uuid.slice(7);
       const object = await fromUuid(uuid);
-      const descriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath") || "system.description";
+      const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
 
       let innerDescription;
       if (object instanceof Item)               innerDescription = getValueFromPath(object, descriptionPath);
@@ -204,7 +204,7 @@ function _addEventListener(tooltip) {
     });
 
     const header = _header(item.img, item.name);
-    const descriptionPath = game.settings.get("pazindor-dev-essentials", "tooltipItemDescriptionPath") || "system.description";
+    const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
     const description = await _description(getValueFromPath(item, descriptionPath));
     const details = null; // GET ITEM DETAILS
     _swapTooltipContent(tooltip, header, description, details);
