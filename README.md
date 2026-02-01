@@ -2,6 +2,7 @@ This module was created to facilitate the work of developers and macro creators.
 - `PDE.InputDialog` - allow developer to ask user a question and wait for the response. Uses socket to communication between users.
 - `PDE.TokenSelector` - allow user to select tokens. Returns selected tokens.
 - `PDE.TextEditor` - Prose Mirror based text editor.
+- `PDE.TooltipCreator` - allow developer to add automatic tooltips to display items, effects, and journal pages.
 - `PDE.utils` - a collection of useful methods that can significantly improve the development process.
 - `BaseDialog` - ApplicationV2 dialog with listeners that modify dialog values, can also update database objects (such as an actor or item).
 
@@ -81,6 +82,21 @@ In most cases, you'll need to ask a single question and receive an answer. To ac
 - `tokens` - an array of tokens from which the user can choose. If it is empty, the dialog assumes that this applies to all tokens on the scene.
 - `options` - an object containing special dialogue behaviors. It may contain fields such as:
     - `customMessage` - custom message displayed to the user
+
+## TooltipCreator
+`TooltipCreator` can be used in any ApplicationV2. It should be injected in the `_onRender` method.
+```
+async _onRender(context, options) {
+    await super._onRender(context, options);
+    this.element.appendChild(PDE.TooltipCreator.getTooltipHtml());
+}
+```
+Use the `PDE.TooltipCreator.showTooltipFor` and `PDE.TooltipCreator.hideTooltip` methods to display and hide the tooltip. If you're looking for an example, take a look at how it was created in `BaseDialog` or `TokenHotbar` in Pazindor's Token Hotbar module. Tooltip automatically recognizes links and allow to jump between objects by clicking on hyperlinks.
+
+If you extend `BaseDialog`, the html element that will display the tooltip will require two elements in the dataset. The first is `data-hover="tooltip"` and the second is `data-uuid="{{object.uuid}}"`. Example of html element
+```
+<img class="item-img" src="{{img}}" data-hover="tooltip" data-uuid="{{item.uuid}}"/>
+```
 
 ##### Example of use
 ```
