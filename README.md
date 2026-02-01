@@ -83,6 +83,12 @@ In most cases, you'll need to ask a single question and receive an answer. To ac
 - `options` - an object containing special dialogue behaviors. It may contain fields such as:
     - `customMessage` - custom message displayed to the user
 
+##### Example of use
+```
+const result = await PDE.TokenSelector.create([], {customMessage: "Select targets of your attack"});
+console.log(result)
+```
+
 ## TooltipCreator
 `TooltipCreator` can be used in any ApplicationV2. It should be injected in the `_onRender` method.
 ```
@@ -93,15 +99,11 @@ async _onRender(context, options) {
 ```
 Use the `PDE.TooltipCreator.showTooltipFor` and `PDE.TooltipCreator.hideTooltip` methods to display and hide the tooltip. If you're looking for an example, take a look at how it was created in `BaseDialog` or `TokenHotbar` in Pazindor's Token Hotbar module. Tooltip automatically recognizes links and allow to jump between objects by clicking on hyperlinks.
 
-If you extend `BaseDialog`, the html element that will display the tooltip will require two elements in the dataset. The first is `data-hover="tooltip"` and the second is `data-uuid="{{object.uuid}}"`. Example of html element
+If you extend `BaseDialog`, the html element that will display the tooltip will require two elements in the dataset. The first is `data-hover="tooltip"` and the second is `data-uuid="{{object.uuid}}"`. 
+
+##### Example of the html element
 ```
 <img class="item-img" src="{{img}}" data-hover="tooltip" data-uuid="{{item.uuid}}"/>
-```
-
-##### Example of use
-```
-const result = await PDE.TokenSelector.create([], {customMessage: "Select targets of your attack"});
-console.log(result)
 ```
 
 ## BaseDialog
