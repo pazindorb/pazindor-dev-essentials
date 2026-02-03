@@ -43,21 +43,21 @@ export class TooltipCreator {
 async function _itemTooltip(item, event, html, options) {
   const header = _header(item.img, item.name);
   const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
-  const description = await _description(getValueFromPath(item, descriptionPath));
+  const description = await _description(getValueFromPath(item, descriptionPath), {object: item});
   const details = PDE.system.itemDetails ? PDE.system.itemDetails(item) : null;
   _showTooltip(html, event, header, description, details, options);
 }
 
 async function _effectTooltip(effect, event, html, options) {
   const header = _header(effect.img, effect.name);
-  const description = await _description(effect.description);
+  const description = await _description(effect.description, {object: effect});
   const details = _effectDetails(effect);
   _showTooltip(html, event, header, description, details, options);
 }
 
 async function _journalPageTooltip(page, event, html, options) {
   const header = _header(options.img || "icons/svg/book.svg", options.header || page.name);
-  const description = await _description(page.text.content);
+  const description = await _description(page.text.content, {object: page});
   _showTooltip(html, event, header, description, null, options);
 }
 
@@ -71,19 +71,19 @@ function _header(img, name) {
   `
 }
 
-async function _description(description) {
+async function _description(description, options) {
   if (!description) return "<div class='description'></div>";
   description = foundry.utils.deepClone(description); // Dont work on the original
 
-  const enhancedDescription = await _enhanceDescription(description);
+  const enhancedDescription = await _enhanceDescription(description, options);
   return `<div class='description'> ${enhancedDescription} </div>`;
 }
 
-async function _enhanceDescription(description) {
+async function _enhanceDescription(description, options) {
   description = await _injectEmbededLinks(description);
   // TODO Run system specific tooltip enrichments ex. &Reference for dnd5e
   if (PDE.system?.enhanceTooltipDescription) {
-    description = await PDE.system.enhanceTooltipDescription(description);
+    description = await PDE.system.enhanceTooltipDescription(description, options);
   }
   description = _prepareUuidLinks(description);
   return _clearStyles(description);

@@ -6,27 +6,16 @@ export function pf2eConfig() {
   }
 }
 
-async function enhanceTooltipDescription(description) {
+async function enhanceTooltipDescription(description, options={}) {
   description = description.replaceAll("&amp;", "&");
+  options.relativeTo = options.object;
 
   for (const enricher of CONFIG.TextEditor.enrichers) {
     const matches = [...description.matchAll(enricher.pattern)];
     for (const match of matches) {
-      const enriched = await enricher.enricher(match);
+      const enriched = await enricher.enricher(match, options);
 
-      let uuidElement;
-      if (enriched.hasAttribute(["data-uuid"])) uuidElement = enriched;
-      if (enriched.querySelector("[data-uuid]")) uuidElement = enriched.querySelector("[data-uuid]");
-      
-      let uuid;
-      if (uuidElement) {
-        uuid = uuidElement.getAttribute("data-uuid");
-      }
-
-      if (uuid) {
-        const uuidLink = `@UUID[${uuid}]{${match[2]}}`;
-        description = description.replace(match[0], uuidLink); // tooltip will handle that format
-      }
+      description = description.replace(match[0], enriched.getHTML());
     }
   }
   return description;
