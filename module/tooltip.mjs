@@ -85,7 +85,8 @@ async function _enhanceDescription(description, options) {
   if (PDE.system?.enhanceTooltipDescription) {
     description = await PDE.system.enhanceTooltipDescription(description, options);
   }
-  description = _prepareUuidLinks(description);
+  description = await _prepareUuidLinks(description, /@UUID\[[^\]]*]\{[^}]*}/g);
+  description = await _prepareUuidLinks(description, /@UUID\[(.*?)\]/g);
   return _clearStyles(description);
 }
 
@@ -110,22 +111,30 @@ async function _injectEmbededLinks(description) {
     return description;
 }
 
-function _prepareUuidLinks(description) {
-  const uuidRegex = /@UUID\[[^\]]*]\{[^}]*}/g;
-  const itemLinks = [...description.matchAll(uuidRegex)];
-  itemLinks.forEach(link => {
-    link = link[0];
-    let [uuid, name] = link.split("]{");    
-    // Remove "trash"
-    uuid = uuid.slice(6);
-    name = name.slice(0, name.length- 1);
+async function _prepareUuidLinks(description, regex) {
+  const itemLinks = [...description.matchAll(regex)];
+  for (const match of itemLinks) {
+    const link = match[0];
+    if (!link) return; 
+
+    let uuid; let name;
+    if (link.includes("]{")) {
+      let [part1, part2] = link.split("]{");    
+      uuid = part1.slice(6);
+      name = part2.slice(0, part2.length - 1);
+    }
+    else {
+      uuid = link.slice(6, link.length - 1);
+      const object = await fromUuid(uuid);
+      name = object.name;
+    }
 
     let tooltipLink = ""; 
     if (uuid.includes(".Item.")) tooltipLink = `<span class="item-tooltip hyperlink-style" data-uuid="${uuid}">${name}</span>`;
     else if (uuid.includes(".JournalEntryPage.")) tooltipLink = `<span class="journal-tooltip hyperlink-style" data-uuid="${uuid}">${name}</span>`;
     else tooltipLink = `<span><b>${name}</b></span>`;
     description = description.replace(link, tooltipLink);
-  });
+  }
   return description;
 }
 
