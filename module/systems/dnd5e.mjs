@@ -54,5 +54,17 @@ function itemDetails(item) {
   if (l.target)       content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.TARGET")}${l.target}</div>`;
   if (l.range)        content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.RANGE")}${l.range}</div>`;
 
-  if (content) return `<div class="box-wrapper">${content}</div>`;
+  let propContent = ""
+  const properties = item.system.properties;
+  if (properties && properties.size > 0) {
+    for (const propKey of properties) {
+      const property = CONFIG.DND5E.itemProperties[propKey];
+      if (property) propContent += `<div class="detail" style="font-size: 11px; background-color: #71807f;">${property.label}</div>`
+    }
+  }
+
+  let finalContent = "";
+  if (content) finalContent += `<div class="box-wrapper">${content}</div>`
+  if (propContent) finalContent += `<div id="prop-underline" class="underline"></div> <div class="box-wrapper" style="gap: 3px;">${propContent}</div>`
+  return finalContent;
 }

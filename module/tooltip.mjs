@@ -243,8 +243,8 @@ function _setPosition(event, tooltip, options) {
       if (pos.top) tooltip[0].style.top = pos.top;
       if (pos.bottom) tooltip[0].style.bottom = pos.bottom;
 
-      if (pos.maxHeight) tooltip[0].style.maxHeight = "500px";
-      if (pos.minWidth) tooltip[0].style.minWidth = "300px";
+      if (pos.maxHeight) tooltip[0].style.maxHeight = pos.maxHeight;
+      if (pos.minWidth) tooltip[0].style.minWidth = pos.minWidth;
     }
     else {
       tooltip[0].style.maxHeight = "500px";

@@ -23,5 +23,9 @@
   "PDE.TOOLTIP.TARGET": "Target: ",
   "PDE.TOOLTIP.RANGE": "Range: ",
   "PDE.TOOLTIP.DURATION": "Duration: ",
-  "PDE.TOOLTIP.TO_HIT": "To Hit: "
+  "PDE.TOOLTIP.TO_HIT": "To Hit: ",
+  "PDE.TOOLTIP.DEFENSE": "Defense: ",
+  "PDE.TOOLTIP.AREA": "Area: ",
+  "PDE.TOOLTIP.BASIC": "Basic",
+  "PDE.TOOLTIP.ACTION": "Action(s)"
 }
