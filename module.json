@@ -9,7 +9,7 @@
   "version": "0.8.6",
   "compatibility": {
     "minimum": "13",
-    "verified": "13.350"
+    "verified": "13.351"
   },
   "library": true,
   "socket": true,
