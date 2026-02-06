@@ -1,3 +1,6 @@
+.pde {
+  overflow-y: auto;
+}
 .pde .box-wrapper {
   border-width: 2px;
   border-radius: 5px;

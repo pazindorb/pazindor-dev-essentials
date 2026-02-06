@@ -27,5 +27,7 @@
   "PDE.TOOLTIP.DEFENSE": "Defense: ",
   "PDE.TOOLTIP.AREA": "Area: ",
   "PDE.TOOLTIP.BASIC": "Basic",
-  "PDE.TOOLTIP.ACTION": "Action(s)"
+  "PDE.TOOLTIP.ACTION": "Action(s)",
+
+  "PDE.ERROR.ENRICHER": "Error when running system enricher for item."
 }

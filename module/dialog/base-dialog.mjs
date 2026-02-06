@@ -21,8 +21,6 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
 
   _initializeApplicationOptions(options) {
     const initialized = super._initializeApplicationOptions(options);
-    const colorTheme = game.settings.get("core", "uiConfig").colorScheme.applications;
-    initialized.classes.push(`theme-${colorTheme}`);
     return initialized;
   }
 

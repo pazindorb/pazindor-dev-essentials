@@ -82,9 +82,15 @@ async function _description(description, options) {
 async function _enhanceDescription(description, options) {
   description = await _injectEmbededLinks(description);
   // TODO Run system specific tooltip enrichments ex. &Reference for dnd5e
-  if (PDE.system?.enhanceTooltipDescription) {
-    description = await PDE.system.enhanceTooltipDescription(description, options);
+  // Wrap it in try catch so when it breaks it only logs that info and not fucks up tooltip completely 
+  try {
+    if (PDE.system?.enhanceTooltipDescription) {
+      description = await PDE.system.enhanceTooltipDescription(description, options);
+    }
+  } catch (e) {
+    ui.warn(game.i18n.localize("PDE.ERROR.ENRICHER"));
   }
+
   description = await _prepareUuidLinks(description, /@UUID\[[^\]]*]\{[^}]*}/g);
   description = await _prepareUuidLinks(description, /@UUID\[(.*?)\]/g);
   return _clearStyles(description);
