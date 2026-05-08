@@ -1,4 +1,5 @@
 import { prepareConstants } from "./configs/constant.mjs";
+import { gmCreate, gmDelete, gmUpdate } from "./configs/gm-methods.mjs";
 import { registerHandlebarsHelpers } from "./configs/handlebars.mjs";
 import { registerModuleSocket } from "./configs/socket.mjs";
 import { InputDialog } from "./dialog/input-dialog.mjs";
@@ -21,7 +22,12 @@ Hooks.on("init", () => {
     TokenSelector,
     TextEditor,
     TooltipCreator,
-    utils: {...utils}
+    utils: {...utils},
+    crud: {
+      gmCreate: gmCreate,
+      gmUpdate: gmUpdate,
+      gmDelete: gmDelete
+    }
   }
 
   // Default system agnostic config
