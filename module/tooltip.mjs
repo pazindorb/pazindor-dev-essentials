@@ -80,7 +80,7 @@ function _header(img, name) {
 }
 
 async function _description(description, options) {
-  if (!description) return "<div class='description'></div>";
+  if (!description || typeof description !== "string") return "<div class='description'></div>";
   description = foundry.utils.deepClone(description); // Dont work on the original
 
   const enhancedDescription = await _enhanceDescription(description, options);

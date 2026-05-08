@@ -5,6 +5,7 @@ import { InputDialog } from "./dialog/input-dialog.mjs";
 import { TextEditor } from "./dialog/text-editor.mjs";
 import { TokenSelector } from "./dialog/token-selector.mjs";
 import { dnd5eConfig } from "./systems/dnd5e.mjs";
+import { pf1Config } from "./systems/pf1.mjs";
 import { pf2eConfig } from "./systems/pf2e.mjs";
 import { TooltipCreator } from "./tooltip.mjs";
 import * as utils from "./utils.mjs"
@@ -23,9 +24,17 @@ Hooks.on("init", () => {
     utils: {...utils}
   }
 
+  // Default system agnostic config
+  PDE.system = {
+    itemDescriptionPath: "system.description",
+    enhanceTooltipDescription: (description, options={}) => description,
+    itemDetails: (item) => ""
+  }
+
   switch (game.system.id) {
     case "dnd5e": dnd5eConfig(); break;
     case "pf2e": pf2eConfig(); break;
+    case "pf1": pf1Config(); break;
   }
 
   prepareConstants();
