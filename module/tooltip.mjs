@@ -25,9 +25,10 @@ export class TooltipCreator {
   }
 
   static showTooltipFor(object, event, html, options) {
-    if (object instanceof Item)             _itemTooltip(object, event, html, options);
-    if (object instanceof ActiveEffect)     _effectTooltip(object, event, html, options);
-    if (object instanceof JournalEntryPage) _journalPageTooltip(object, event, html, options);
+    if (object instanceof Item)             return _itemTooltip(object, event, html, options);
+    if (object instanceof ActiveEffect)     return _effectTooltip(object, event, html, options);
+    if (object instanceof JournalEntryPage) return _journalPageTooltip(object, event, html, options);
+    if (options.header) return _customTooltip(event, html, options);
   }
 
   static hideTooltip(event, html) {
@@ -61,6 +62,13 @@ async function _journalPageTooltip(page, event, html, options) {
   _showTooltip(html, event, header, description, null, options);
 }
 
+async function _customTooltip(event, html, options) {
+  const header = _header(options.img || "icons/svg/book.svg", options.header);
+  const description = options.description ? await _description(options.description) : "";
+  if (!description) options.headerOnly = true;
+  _showTooltip(html, event, header, description, null, options);
+}
+
 //================================//
 //          HTML CREATOR          //
 //================================//
@@ -81,14 +89,12 @@ async function _description(description, options) {
 
 async function _enhanceDescription(description, options) {
   description = await _injectEmbededLinks(description);
-  // TODO Run system specific tooltip enrichments ex. &Reference for dnd5e
-  // Wrap it in try catch so when it breaks it only logs that info and not fucks up tooltip completely 
-  try {
-    if (PDE.system?.enhanceTooltipDescription) {
+  if (PDE.system?.enhanceTooltipDescription) {
+    try {
       description = await PDE.system.enhanceTooltipDescription(description, options);
+    } catch (e) {
+      ui.warn(game.i18n.localize("PDE.ERROR.TOOLTIP_SYSTEM_ENRICHER"));
     }
-  } catch (e) {
-    ui.warn(game.i18n.localize("PDE.ERROR.ENRICHER"));
   }
 
   description = await _prepareUuidLinks(description, /@UUID\[[^\]]*]\{[^}]*}/g);
@@ -183,6 +189,8 @@ function _showTooltip(html, event, header, description, details, options) {
   // Visibility
   tooltip[0].style.opacity = 1;
   tooltip[0].style.visibility = "visible";
+  if (options.headerOnly) tooltip[0].classList.add("header-only");
+  else tooltip[0].classList.remove("header-only")
 }
 
 function _addEventListener(tooltip) {
