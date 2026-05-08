@@ -205,6 +205,7 @@ function _addEventListener(tooltip) {
     // We need to store old tooltips so we could go back
     tooltip.oldContent.push({
       header: tooltip.find(".tooltip-header").html(),
+      details: tooltip.find(".tooltip-details").html(),
       description: tooltip.find(".tooltip-description").html(),
     });
 
@@ -223,13 +224,14 @@ function _addEventListener(tooltip) {
     // We need to store old tooltips so we could go back
     tooltip.oldContent.push({
       header: tooltip.find(".tooltip-header").html(),
+      details: tooltip.find(".tooltip-details").html(),
       description: tooltip.find(".tooltip-description").html(),
     });
 
     const header = _header(item.img, item.name);
     const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
     const description = await _description(getValueFromPath(item, descriptionPath));
-    const details = null; // GET ITEM DETAILS
+    const details = PDE.system.itemDetails ? PDE.system.itemDetails(item) : null;
     _swapTooltipContent(tooltip, header, description, details);
   });
 }
