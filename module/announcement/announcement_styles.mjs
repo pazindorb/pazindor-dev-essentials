@@ -42,6 +42,21 @@ export class AnnouncementStyles {
     "hex-seal_gold",
     "hex-seal_blood",
     "hex-seal_arcane",
+
+    "parchment_scroll",
+    "stained_glass",
+    "smoke_veil",
+    "stone_tablet",
+    "ember_forge",
+
+    "starry_night",
+    "aurora_curtain",
+    "deep_ocean",
+    "forest_canopy",
+    "holy_radiance",
+    "void_rift",
+    "ink_bloom",
+    "sandstorm",
   ]
 
   static setFormat() {
