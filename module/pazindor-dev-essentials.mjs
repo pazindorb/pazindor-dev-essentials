@@ -1,3 +1,5 @@
+import { announceAll, Announcement } from "./announcement/announcement.mjs";
+import { AnnouncementStyles } from "./announcement/announcement_styles.mjs";
 import { prepareConstants } from "./configs/constant.mjs";
 import { gmCreate, gmDelete, gmUpdate } from "./configs/gm-methods.mjs";
 import { registerHandlebarsHelpers } from "./configs/handlebars.mjs";
@@ -27,7 +29,9 @@ Hooks.on("init", () => {
       gmCreate: gmCreate,
       gmUpdate: gmUpdate,
       gmDelete: gmDelete
-    }
+    },
+    announce: announceAll,
+    announcementStyles: AnnouncementStyles.selectFormat()
   }
 
   // Default system agnostic config

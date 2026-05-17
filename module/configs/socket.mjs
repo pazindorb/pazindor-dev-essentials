@@ -1,3 +1,4 @@
+import { announce } from "../announcement/announcement.mjs";
 import { InputDialog } from "../dialog/input-dialog.mjs";
 
 export function registerModuleSocket() {
@@ -19,6 +20,10 @@ export function registerModuleSocket() {
       case emitTypes.DELETE_DOCUMENT:
         handleDeleteDocument(data.payload, emmiterId);
         break
+
+      case emitTypes.ANNOUNCEMENT:
+        handleAnnouncement(data.payload);
+        break;
     }
 
   });
@@ -104,6 +109,11 @@ async function handleDeleteDocument(payload, emmiterId) {
       signature: signature
     });
   }
+}
+
+function handleAnnouncement(payload) {
+  const { announcement, timer, options } = payload;
+  announce(announcement, timer, options);
 }
 
 //=======================================
