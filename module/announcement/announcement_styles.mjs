@@ -57,6 +57,14 @@ export class AnnouncementStyles {
     "void_rift",
     "ink_bloom",
     "sandstorm",
+    
+    "reality_glitch",
+    "dreamscape",
+    "blood_moon",
+    "thunderhead",
+    "arcane_rain",
+    "carnival_spotlight",
+    "time_fracture",
   ]
 
   static setFormat() {
