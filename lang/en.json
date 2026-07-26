@@ -21,6 +21,7 @@
   "PDE.TOOLTIP.DISABLED": "Disabled",
   "PDE.TOOLTIP.TEMPORARY": "Temporary",
   "PDE.TOOLTIP.PASSIVE": "Passive",
+  "PDE.TOOLTIP.STATUS": "Status",
   "PDE.TOOLTIP.TARGET": "Target: ",
   "PDE.TOOLTIP.RANGE": "Range: ",
   "PDE.TOOLTIP.DURATION": "Duration: ",

@@ -1537,10 +1537,11 @@
   color: black;
   padding-left: 3px;
   margin-left: 10px;
+  margin-right: 5px;
   flex: 0 0 auto;
   height: 100%;
   gap: 3.5px;
-  font-size: 15px;
+  font-size: 18px;
   height: 40px;
 }
 .pde#tooltip-container .tooltip-header .cost-printer .cost-img {

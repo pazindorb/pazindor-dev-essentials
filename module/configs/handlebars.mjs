@@ -1,3 +1,5 @@
+import { getValueFromPath } from "../utils.mjs";
+
 export function registerHandlebarsHelpers() {
 
   Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
@@ -28,4 +30,8 @@ export function registerHandlebarsHelpers() {
         return options.inverse(this);
     }
   });
+
+  Handlebars.registerHelper('valueFromPath', function (path, object) {
+    return getValueFromPath(object, path)
+  })
 }

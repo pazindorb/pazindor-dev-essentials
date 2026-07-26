@@ -42,7 +42,13 @@ export class TooltipCreator {
 }
 
 async function _itemTooltip(item, event, html, options) {
-  const header = _header(item.img, item.name);
+  let header = _header(item.img, item.name);
+  if (game.system.id === "dc20rpg") {
+    const data = item.use.useCostDisplayData(true);
+    const cost = DC20.tooltip.costPrinter(data, true, true, true, true)
+    header += cost;
+  }
+
   const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
   const description = await _description(getValueFromPath(item, descriptionPath), {object: item});
   const details = PDE.system.itemDetails ? PDE.system.itemDetails(item) : null;
@@ -159,9 +165,27 @@ function _clearStyles(text) {
 function _effectDetails(effect) {
   let content = "";
   if (effect.disabled) content += `<div class="detail"><i class="fa-solid fa-hourglass" style="margin-right: 2px;"></i> ${game.i18n.localize("PDE.TOOLTIP.DISABLED")}</div>`;
+  else content += _timeLeftDetails(effect);
+  
   if (effect.isTemporary) content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.TEMPORARY")}</div>`;
-  else content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.PASSIVE")}</div>`;
+  else if (effect.showIcon !== CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS) content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.PASSIVE")}</div>`;
+
+  if (effect.statuses.size > 0) content += `<div class="detail">${game.i18n.localize("PDE.TOOLTIP.STATUS")}</div>`
   if (content) return `<div class="box-wrapper">${content}</div>`;
+}
+
+function _timeLeftDetails(effect) {
+  const label = effect.duration.label;
+  const hasTime = label && label !== "None" && !effect.disabled;
+  if (game.system.id === "dc20rpg") {
+    if (effect.system?.duration?.expiryAction && hasTime) {
+      return `<div class="detail"><i class="fa-solid fa-stopwatch" style="margin-right: 2px;"></i> ${effect.duration.label}</div>`;
+    }
+  }
+  else {
+    if (hasTime) return `<div class="detail"><i class="fa-solid fa-stopwatch" style="margin-right: 2px;"></i> ${label}</div>`;
+  }
+  return "";
 }
 
 //================================//

@@ -7,6 +7,7 @@ import { registerModuleSocket } from "./configs/socket.mjs";
 import { InputDialog } from "./dialog/input-dialog.mjs";
 import { TextEditor } from "./dialog/text-editor.mjs";
 import { TokenSelector } from "./dialog/token-selector.mjs";
+import { dc20Config } from "./systems/dc20rpg.mjs";
 import { dnd5eConfig } from "./systems/dnd5e.mjs";
 import { pf1Config } from "./systems/pf1.mjs";
 import { pf2eConfig } from "./systems/pf2e.mjs";
@@ -45,6 +46,7 @@ Hooks.on("init", () => {
     case "dnd5e": dnd5eConfig(); break;
     case "pf2e": pf2eConfig(); break;
     case "pf1": pf1Config(); break;
+    case "dc20rpg": dc20Config(); break;
   }
 
   prepareConstants();
