@@ -52,4 +52,14 @@ Hooks.on("init", () => {
   prepareConstants();
 })
 
-Hooks.once("ready", async function() {});
+Hooks.once("ready", async function() {
+  // Hide tooltip when releasing button
+  window.addEventListener('keyup', (event) => {
+    if (event.key === 'Alt') {
+      const tooltip = document.getElementById("tooltip-container")
+      if (tooltip) {
+        TooltipCreator.hideTooltip(event, $(document), true);
+      }
+    }
+  });
+});

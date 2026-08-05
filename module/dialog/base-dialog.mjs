@@ -82,6 +82,7 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
     switch (cType) {
       case "toggle": this._onToggle(path, event.which, max, min, dataset); break;
       case "activable": this._onActivable(path, event.which, dataset); break;
+      case "boolean": this._onChangeBoolean(path, event.which, dataset); break;
     }
   }
 
@@ -109,6 +110,11 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
     this.updateAndRender(path, newValue, !!dataset.nonDb);
   }
 
+  _onChangeBoolean(path, which, dataset) {
+    const value = getValueFromPath(this, path);
+    this.updateAndRender(path, !value, !!dataset.nonDb);
+  }
+
   _onChangeString(path, value, dataset) {
     this.updateAndRender(path, value, !!dataset.nonDb);
   }
@@ -116,7 +122,7 @@ export class BaseDialog extends foundry.applications.api.HandlebarsApplicationMi
   _onChangeNumeric(path, value, nullable, dataset) {
     let numericValue = parseInt(value);
     if (nullable && isNaN(numericValue)) numericValue = null;
-    this.updateAndRender(path, value, !!dataset.nonDb);
+    this.updateAndRender(path, numericValue, !!dataset.nonDb);
   }
 
   async _onDrop(event) {

@@ -1593,6 +1593,9 @@
 .pde#tooltip-container .hyperlink-style:hover {
   text-shadow: 2px 2px 5px #ca0000;
 }
+.pde#tooltip-container .sheet-render {
+  color: var(--color-level-success);
+}
 .pde#tooltip-container .underline {
   clear: both;
   border: 0;

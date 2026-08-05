@@ -31,9 +31,9 @@ export class TooltipCreator {
     if (options.header) return _customTooltip(event, html, options);
   }
 
-  static hideTooltip(event, html) {
+  static hideTooltip(event, html, force=false) {
     event.preventDefault();
-    if (event.altKey) return;
+    if (event.altKey && !force) return;
 
     const tooltip = html.find("#tooltip-container");
     tooltip[0].style.opacity = 0;
@@ -44,7 +44,7 @@ export class TooltipCreator {
 async function _itemTooltip(item, event, html, options) {
   let header = _header(item.img, item.name);
   if (game.system.id === "dc20rpg") {
-    const data = item.use.useCostDisplayData(true);
+    const data = item?.use?.useCostDisplayData(true) || {resources: {}, charges: {}, quantity: {}};
     const cost = DC20.tooltip.costPrinter(data, true, true, true, true)
     header += cost;
   }
@@ -117,7 +117,7 @@ async function _injectEmbededLinks(description) {
 
       let uuid = full.split(" ")[0];
       uuid = uuid.slice(7);
-      const object = await fromUuid(uuid);
+      const object = await getFromUuid(uuid);
       const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
 
       let innerDescription;
@@ -143,13 +143,14 @@ async function _prepareUuidLinks(description, regex) {
     }
     else {
       uuid = link.slice(6, link.length - 1);
-      const object = await fromUuid(uuid);
+      const object = await getFromUuid(uuid);
       name = object.name;
     }
 
     let tooltipLink = ""; 
-    if (uuid.includes(".Item.")) tooltipLink = `<span class="item-tooltip hyperlink-style" data-uuid="${uuid}">${name}</span>`;
+    if (uuid.includes("Item.")) tooltipLink = `<span class="item-tooltip hyperlink-style" data-uuid="${uuid}">${name}</span>`;
     else if (uuid.includes(".JournalEntryPage.")) tooltipLink = `<span class="journal-tooltip hyperlink-style" data-uuid="${uuid}">${name}</span>`;
+    else if (uuid.includes("JournalEntry.")) tooltipLink = `<span class="journal-tooltip hyperlink-style sheet-render" data-uuid="${uuid}"><i class="fa-solid fa-book-open"></i>${name}</span>`;
     else tooltipLink = `<span><b>${name}</b></span>`;
     description = description.replace(link, tooltipLink);
   }
@@ -223,8 +224,9 @@ function _addEventListener(tooltip) {
     const data = ev.currentTarget.dataset;
     if (tooltip.oldContent === undefined) tooltip.oldContent = [];
 
-    const page = await fromUuid(data.uuid);
+    const page = await getFromUuid(data.uuid);
     if (!page) return;
+    if (_openSheetInstead(page)) return;
 
     // We need to store old tooltips so we could go back
     tooltip.oldContent.push({
@@ -242,8 +244,9 @@ function _addEventListener(tooltip) {
     const data = ev.currentTarget.dataset;
     if (tooltip.oldContent === undefined) tooltip.oldContent = [];
 
-    const item = await fromUuid(data.uuid);
+    const item = await getFromUuid(data.uuid);
     if (!item) return;
+    if (_openSheetInstead(item)) return;
 
     // We need to store old tooltips so we could go back
     tooltip.oldContent.push({
@@ -322,4 +325,21 @@ function _setPosition(event, tooltip, options) {
         tooltip[0].style.left = (cursorPosition + 50) + "px";
       }
     } 
+}
+
+async function getFromUuid(uuid) {
+  if (uuid.includes("#")) {
+    const [uuidPart, pagePart] = uuid.split("#");
+    uuid = uuidPart;
+  }
+  const object = await fromUuid(uuid);
+  return object;
+}
+
+function _openSheetInstead(object) {
+  if (object instanceof JournalEntry) {
+    object.sheet.render(true);
+    return true;
+  }
+  return false;
 }
