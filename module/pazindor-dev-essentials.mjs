@@ -8,7 +8,9 @@ import { InputDialog } from "./dialog/input-dialog.mjs";
 import { TextEditor } from "./dialog/text-editor.mjs";
 import { TokenSelector } from "./dialog/token-selector.mjs";
 import { dc20Config } from "./systems/dc20rpg.mjs";
+import { daggerheartConfig } from "./systems/daggerheart.mjs";
 import { dnd5eConfig } from "./systems/dnd5e.mjs";
+import { drawSteelConfig } from "./systems/draw-steel.mjs";
 import { pf1Config } from "./systems/pf1.mjs";
 import { pf2eConfig } from "./systems/pf2e.mjs";
 import { TooltipCreator } from "./tooltip.mjs";
@@ -38,7 +40,7 @@ Hooks.on("init", () => {
   // Default system agnostic config
   PDE.system = {
     itemDescriptionPath: "system.description",
-    enhanceTooltipDescription: (description, options={}) => description,
+    enhanceTooltipDescription: defaultTooltipDescriptionEnhancer,
     itemDetails: (item) => ""
   }
 
@@ -47,6 +49,8 @@ Hooks.on("init", () => {
     case "pf2e": pf2eConfig(); break;
     case "pf1": pf1Config(); break;
     case "dc20rpg": dc20Config(); break;
+    case "daggerheart": daggerheartConfig(); break;
+    case "draw-steel": drawSteelConfig(); break;
   }
 
   prepareConstants();
@@ -63,3 +67,18 @@ Hooks.once("ready", async function() {
     }
   });
 });
+
+async function defaultTooltipDescriptionEnhancer(description, options={}) {
+  description = description.replaceAll("&amp;", "&");
+  options.relativeTo = options.object;
+
+  for (const enricher of CONFIG.TextEditor.enrichers) {
+    const matches = [...description.matchAll(enricher.pattern)];
+    for (const match of matches) {
+      const enriched = await enricher.enricher(match, options);
+
+      description = description.replace(match[0], enriched.getHTML());
+    }
+  }
+  return description;
+}

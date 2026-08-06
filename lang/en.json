@@ -24,6 +24,7 @@
   "PDE.TOOLTIP.STATUS": "Status",
   "PDE.TOOLTIP.TARGET": "Target: ",
   "PDE.TOOLTIP.RANGE": "Range: ",
+  "PDE.TOOLTIP.DISTANCE": "Distance: ",
   "PDE.TOOLTIP.DURATION": "Duration: ",
   "PDE.TOOLTIP.TO_HIT": "To Hit: ",
   "PDE.TOOLTIP.DEFENSE": "Defense: ",

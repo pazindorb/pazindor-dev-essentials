@@ -1,24 +1,6 @@
 export function pf2eConfig() {
-  PDE.system = {
-    itemDescriptionPath: "system.description.value",
-    enhanceTooltipDescription: enhanceTooltipDescription,
-    itemDetails: itemDetails
-  }
-}
-
-async function enhanceTooltipDescription(description, options={}) {
-  description = description.replaceAll("&amp;", "&");
-  options.relativeTo = options.object;
-
-  for (const enricher of CONFIG.TextEditor.enrichers) {
-    const matches = [...description.matchAll(enricher.pattern)];
-    for (const match of matches) {
-      const enriched = await enricher.enricher(match, options);
-
-      description = description.replace(match[0], enriched.getHTML());
-    }
-  }
-  return description;
+  PDE.system.itemDescriptionPath = "system.description.value";
+  PDE.system.itemDetails = itemDetails;
 }
 
 function itemDetails(item) {

@@ -1,9 +1,6 @@
 export function dc20Config() {
-  PDE.system = {
-    itemDescriptionPath: "system.description",
-    enhanceTooltipDescription: (description, options) => description,
-    itemDetails: itemDetails
-  }
+  PDE.system.itemDescriptionPath = "system.description";
+  PDE.system.itemDetails = itemDetails;
 }
 
 function itemDetails(item) {

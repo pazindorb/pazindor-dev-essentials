@@ -86,7 +86,7 @@ function _header(img, name) {
 }
 
 async function _description(description, options) {
-  if (!description || typeof description !== "string") return "<div class='description'></div>";
+  if (typeof description !== "string") description = "";
   description = foundry.utils.deepClone(description); // Dont work on the original
 
   const enhancedDescription = await _enhanceDescription(description, options);
@@ -119,7 +119,6 @@ async function _injectEmbededLinks(description) {
       uuid = uuid.slice(7);
       const object = await getFromUuid(uuid);
       const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
-
       let innerDescription;
       if (object instanceof Item)               innerDescription = getValueFromPath(object, descriptionPath);
       if (object instanceof ActiveEffect)       innerDescription = object.description;
@@ -257,7 +256,7 @@ function _addEventListener(tooltip) {
 
     const header = _header(item.img, item.name);
     const descriptionPath = PDE.system.itemDescriptionPath || "system.description";
-    const description = await _description(getValueFromPath(item, descriptionPath));
+    const description = await _description(getValueFromPath(item, descriptionPath), {object: item});
     const details = PDE.system.itemDetails ? PDE.system.itemDetails(item) : null;
     _swapTooltipContent(tooltip, header, description, details);
   });
