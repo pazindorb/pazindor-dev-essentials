@@ -1,20 +1,15 @@
 <form id="token-selector" class="dialog-v13 dialog-content standard-form {{cssClass}}">
   <h4 class="divider">{{localize "PDE.TOKEN_SELECTOR.TITLE"}}</h4>
-  {{#if message}} 
-  <div class="message"><label>{{message}}</label></div> 
-  {{/if}}
+  {{#if message}}<div class="message"><label>{{message}}</label></div>{{/if}}
 
   <fieldset class="token-wrapper scrollable">
     {{#each tokens as |wrapper id|}}
-    <div class="actor">
+    <div class="actor {{#if wrapper.selected}}selected{{/if}}" data-action="select" data-id="{{id}}">
       <div class="wrapper">
         <img src="{{wrapper.token.actor.img}}"/>
-        <input disabled value="{{wrapper.token.name}}"/>
+        <input class="disabled" value="{{wrapper.token.name}}"/>
       </div>
-      <div class="buttons">
-        <a class="fa-solid fa-bullseye fa-lg margin-right-10" data-action="ping" data-id="{{id}}" data-tooltip="{{localize "PDE.TOKEN_SELECTOR.PING"}}" style="margin-right:10px;"></a>
-        <a data-cType="activable" data-path="tokens.{{id}}.selected" class="fa-2x {{#if wrapper.selected}}fa-solid fa-square-check{{else}}fa-regular fa-square{{/if}}"></a>
-      </div>
+      <a class="fa-solid fa-bullseye fa-lg margin-right-10 ping-button" data-action="ping" data-id="{{id}}" data-tooltip="{{localize "PDE.TOKEN_SELECTOR.PING"}}" style="margin-right:10px;"></a>
     </div>
     {{/each}}
   </fieldset>

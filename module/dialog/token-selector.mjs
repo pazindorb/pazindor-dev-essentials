@@ -38,6 +38,7 @@ export class TokenSelector extends BaseDialog {
 
     initialized.actions.confirm = this._onConfirm;
     initialized.actions.ping = this._onPingToken;
+    initialized.actions.select = this._onSelectTarget;
     return initialized;
   }
 
@@ -46,6 +47,12 @@ export class TokenSelector extends BaseDialog {
     context.tokens = this.tokens;
     context.message = this.customMessage;
     return context;
+  }
+
+  _onSelectTarget(event, target) {
+    const wrapper = this.tokens[target.dataset.id];
+    wrapper.selected = !wrapper.selected;
+    this.render();
   }
 
   _onPingToken(event, target) {
