@@ -8,8 +8,8 @@
   }],
   "version": "1.0.0",
   "compatibility": {
-    "minimum": 13,
-    "verified": "14.365"
+    "minimum": 14,
+    "verified": "14.367"
   },
   "library": true,
   "socket": true,
@@ -25,6 +25,6 @@
   "flags": {},
   "description": "<p>This module was created to facilitate the work of developers and macro creators. It provides useful features, including input dialog that allow users to send questions to other users and wait for the response.</p>",
   "url": "",
-  "manifest": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.9.5/module.json",
-  "download": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/0.9.5/pazindor-dev-essentials.zip"
+  "manifest": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/1.0.0/module.json",
+  "download": "https://github.com/pazindorb/pazindor-dev-essentials/releases/download/1.0.0/pazindor-dev-essentials.zip"
 }
