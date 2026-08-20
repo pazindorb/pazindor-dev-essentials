@@ -27,11 +27,11 @@
   <fieldset class="input-fields">
     {{#each inputs as |input index|}}
     <div class="form-group">
-      {{#if input.label}}<label>{{input.label}}</label>{{/if}}
+      {{#if input.label}}<label>{{localize input.label}}</label>{{/if}}
       {{!-- SELECT --}}
       {{#ifCond input.type '===' "select"}}
       <select data-cType="string" data-path="data.inputs.{{index}}.value">
-        {{selectOptions input.options selected=input.value blank=""}}
+        {{selectOptions input.options selected=input.value blank="" localize=true}}
       </select>
       {{/ifCond}}
 
