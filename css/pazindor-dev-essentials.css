@@ -1484,7 +1484,7 @@
   --text-shadow: none;
   --highlight-color: var(--primary-color);
   pointer-events: all;
-  background-image: url(../images/sheet/parchment.jpg);
+  background-color: #d5d3c7;
   box-shadow: 0 0 15px #6b6a6a inset;
   position: fixed;
   min-height: 200px;
@@ -1512,7 +1512,7 @@
   --text-color: var(--color-dark-1);
   --text-shadow: none;
   --highlight-color: var(--primary-color);
-  background-image: url(../images/sheet/parchment.jpg);
+  background: #d5d3c7;
   box-shadow: 0 0 15px #6b6a6a inset;
 }
 .pde#tooltip-container.header-only {
